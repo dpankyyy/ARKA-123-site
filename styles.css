@@ -1,0 +1,293 @@
+/* ================= АРКА 123 — вертикальный скролл, 6 блоков ================= */
+:root{
+  --ink:#16324a;          /* фирменный синий */
+  --paper:#ffffff;        /* белый */
+  --brass:#2f7cc4;        /* светлый синий — акцент */
+  --line:rgba(22,50,74,.14);
+  --font-d:"Unbounded",system-ui,sans-serif;
+  --font-b:"Manrope",system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{background:var(--paper);color:var(--ink)}
+body{font-family:var(--font-b);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+img,video{display:block;max-width:100%}
+::selection{background:var(--brass);color:#fff}
+.h2{font-family:var(--font-d);font-weight:500;line-height:1.08;font-size:clamp(26px,3.6vw,50px);letter-spacing:-.01em}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;font-weight:inherit}
+
+/* ================= ПРЕЛОАДЕР ================= */
+#preloader{
+  position:fixed;inset:0;z-index:100;background:var(--ink);
+  display:grid;place-items:center;transition:opacity .7s ease,visibility .7s;
+}
+#preloader.is-done{opacity:0;visibility:hidden}
+.pre-stage{display:flex;flex-direction:column;align-items:center;gap:22px;width:min(420px,80vw)}
+.pre-logo{
+  width:100%;height:auto;
+  mix-blend-mode:screen;   /* чёрный фон анимации растворяется на синем, белый логотип остаётся */
+}
+
+/* ================= ХЕДЕР: лого · номер · адрес ================= */
+#site-header{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:12px clamp(14px,3.5vw,44px);
+  background:rgba(22,50,74,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  color:var(--paper);
+}
+.brand{display:flex;align-items:center}
+.brand-logo{
+  width:64px;height:64px;object-fit:contain;
+  mix-blend-mode:screen;               /* чёрный фон ролика растворяется, белая иконка остаётся */
+  transition:transform .3s;
+}
+.brand:hover .brand-logo{transform:translateY(-2px) scale(1.08)}
+.h-contacts{display:flex;align-items:center;gap:22px;flex-wrap:wrap;justify-content:flex-end}
+.h-phone{font-family:var(--font-d);font-size:clamp(14px,1.5vw,18px);font-weight:500;letter-spacing:.02em;transition:color .25s}
+.h-phone:hover{color:rgba(255,255,255,.7)}
+.h-address{font-size:12.5px;letter-spacing:.06em;color:rgba(255,255,255,.75);max-width:340px;text-align:right}
+@media(max-width:640px){.h-address{display:none}}
+
+/* ================= БЛОК 1 — ГЕРОЙ (макет Figma, узел 77-190) ================= */
+.hero{
+  /* кегль «123 м²» по макету 2684×1510: 33.28% высоты кадра = 18.72% ширины */
+  --hero-fs:min(33.28vh,18.72vw);
+  position:relative;height:100vh;min-height:560px;overflow:hidden;background:var(--ink)
+}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-veil{
+  /* градиент макета (Figma): слева плотный, вправо — 30% */
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,#20323D 0%,rgba(30,49,61,.30) 100%);
+}
+.hero-copy{
+  position:absolute;left:4.45%;right:4.45%;top:50%;transform:translateY(-50%);
+  z-index:2;color:var(--paper);text-align:left;
+}
+.hero-title{
+  position:relative;
+  font-family:var(--font-d);font-weight:700;
+  font-size:var(--hero-fs);line-height:1;letter-spacing:0;
+  white-space:nowrap;color:rgba(255,255,255,.97);
+}
+.hero-unit{font-style:normal;color:rgba(255,255,255,.8)}   /* «м²» приглушено белым */
+.hero-badge{
+  /* векторная надпись «АРКА 123» лежит прямо на белой перекладине цифры «2», без плашки;
+     отступы сверху, снизу и справа до контура «2» одинаковые */
+  position:absolute;
+  left:calc(var(--hero-fs) * .8186);
+  bottom:calc(var(--hero-fs) * .1678);
+  line-height:0;
+}
+.hero-badge img{
+  display:block;
+  width:calc(var(--hero-fs) * .445);
+  height:auto;
+}
+.hero-sub{
+  /* одинаковые отступы: «123» ↔ «напротив Библиотеки» ↔ подпись про аренду */
+  margin-top:calc(var(--hero-fs) * .005);
+  font-family:var(--font-d);font-weight:500;
+  font-size:calc(var(--hero-fs) * .1771);
+  line-height:1;letter-spacing:.016em;
+  white-space:nowrap;color:var(--paper);
+}
+.hero-tag{
+  margin:calc(var(--hero-fs) * .127) 0 0;
+  font-family:var(--font-d);font-weight:500;
+  font-size:calc(var(--hero-fs) * .085);
+  line-height:1.35;letter-spacing:.01em;
+  color:rgba(255,255,255,.88);
+}
+.scroll-hint{
+  position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.75);
+}
+.scroll-hint i{width:1px;height:44px;background:linear-gradient(var(--brass),transparent);animation:hint 1.6s infinite}
+@keyframes hint{0%{transform:scaleY(.2);transform-origin:top}60%{transform:scaleY(1)}100%{transform:scaleY(.2);transform-origin:bottom;opacity:0}}
+@media(max-width:760px){
+  .hero{--hero-fs:21vw}                 /* на узких экранах «123 м²» занимает ~84% ширины */
+}
+
+/* ================= БЛОК 2 — ВИДЕОСЦЕНА С ПЕРСОНАЖЕМ (вьюпорт зафиксирован) ================= */
+.usp{position:relative;height:100vh;height:100dvh;overflow:hidden;background:var(--ink)}
+.usp-stage{position:absolute;inset:0;overflow:hidden}
+.usp-video{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  opacity:0;transition:opacity .1s linear;
+}
+.usp-video.is-live{opacity:1}          /* виден тот ролик, который сейчас играет/стоит на покое */
+.usp-veil{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(22,50,74,.72) 0%,rgba(22,50,74,0) 26%),
+    linear-gradient(0deg,rgba(22,50,74,.94) 0%,rgba(22,50,74,.66) 22%,rgba(22,50,74,.30) 38%,rgba(22,50,74,0) 54%);
+}
+
+/* сцены: одна сцена — один тезис, простой белый текст как «123 м²» в герое,
+   оба тезиса на одном уровне (слева снизу / справа снизу) */
+.scenes{
+  position:absolute;inset:0;
+  z-index:3;pointer-events:none;
+}
+.scene{
+  position:absolute;left:4.45%;right:4.45%;bottom:12.76%;
+  font-family:var(--font-d);font-weight:700;
+  font-size:min(9vh,4.9vw);
+  line-height:1.06;color:rgba(255,255,255,.97);
+  opacity:0;transform:translateY(30px);
+  transition:opacity .45s ease,transform .55s cubic-bezier(.2,.7,.2,1);
+}
+.scene.is-on{opacity:1;transform:none}
+.scene--right{text-align:right}
+
+/* жест вниз: уходящий тезис уезжает вверх, входящий всплывает снизу с задержкой */
+.scene.from-down{animation:sceneInUp .6s cubic-bezier(.2,.7,.2,1) .32s both}
+.scene.to-up{animation:sceneOutUp .45s ease both}
+/* жест вверх — зеркально */
+.scene.from-up{animation:sceneInDown .6s cubic-bezier(.2,.7,.2,1) .32s both}
+.scene.to-down{animation:sceneOutDown .45s ease both}
+
+@keyframes sceneInUp{from{opacity:0;transform:translateY(80px)}to{opacity:1;transform:none}}
+@keyframes sceneOutUp{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-80px)}}
+@keyframes sceneInDown{from{opacity:0;transform:translateY(-80px)}to{opacity:1;transform:none}}
+@keyframes sceneOutDown{from{opacity:1;transform:none}to{opacity:0;transform:translateY(80px)}}
+
+@media(max-width:760px){
+  .scene{font-size:min(7.4vh,8.4vw);left:clamp(18px,5vw,64px);right:clamp(18px,5vw,64px)}
+}
+
+/* ================= БЛОКИ CTA (3 и 6) ================= */
+.cta{position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden;background:var(--ink)}
+.cta-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* слайдшоу фотографий с гостями: короткий перекрёстный переход без «синего» провала */
+.cta-slides{position:absolute;inset:0}
+.cta-slides img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;animation:ctaFade 9s infinite;
+}
+.cta-slides img:nth-child(1){animation-delay:0s}
+.cta-slides img:nth-child(2){animation-delay:3s}
+.cta-slides img:nth-child(3){animation-delay:6s}
+@keyframes ctaFade{
+  0%{opacity:0}
+  3%{opacity:1}      /* быстрый въезд ~0.27 с */
+  31%{opacity:1}
+  37%{opacity:0}     /* выезд перекрывает въезд соседа — синего провала нет */
+  100%{opacity:0}
+}
+.cta-bg--photo{display:grid;place-items:center;background:linear-gradient(135deg,var(--brass),var(--ink))}
+.cta-bg--photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cta-veil{
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(22,50,74,.85) 0%,rgba(22,50,74,.55) 55%,rgba(22,50,74,.3) 100%);
+}
+.cta-copy{position:relative;z-index:2;color:var(--paper);padding:clamp(60px,10vh,120px) clamp(22px,7vw,110px);max-width:900px}
+.cta-title{font-family:var(--font-d);font-weight:500;font-size:clamp(30px,4.6vw,64px);line-height:1.06;margin-bottom:18px;text-shadow:0 16px 50px rgba(0,0,0,.45)}
+.cta-lead{font-size:clamp(15px,1.5vw,19px);line-height:1.6;color:rgba(255,255,255,.9);margin-bottom:28px;max-width:560px}
+
+/* Кнопки */
+.btn{display:inline-block;padding:15px 30px;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:.04em;transition:.25s;text-align:center}
+.btn--solid{background:var(--brass);color:#fff}
+.btn--solid:hover{background:var(--ink);transform:translateY(-2px)}
+.btn--ghost{border:1px solid var(--line);color:var(--ink)}
+.btn--ghost:hover{background:rgba(22,50,74,.07)}
+
+/* подсказка для фото, которое ещё вставит владелец */
+.photo-hint{
+  position:absolute;inset:0;display:grid;place-items:center;text-align:center;
+  font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);
+  border:2px dashed rgba(255,255,255,.28);border-radius:inherit;
+}
+.photo-hint i{font-style:normal;letter-spacing:.08em;color:rgba(255,255,255,.8)}
+.cta-bg--photo img + .photo-hint,.review-photo img + .photo-hint{display:none}
+
+/* ================= БЛОК 4 — ТАРИФЫ ================= */
+.details{background:var(--paper);padding:clamp(70px,11vh,130px) clamp(18px,5vw,64px)}
+.details-inner{max-width:1120px;margin:0 auto}
+
+.tariffs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+@media(max-width:900px){.tariffs{grid-template-columns:1fr}}
+.tariff{
+  position:relative;background:rgba(22,50,74,.05);border:1px solid var(--line);
+  border-radius:18px;padding:26px 22px;display:flex;flex-direction:column;gap:14px;transition:.3s;
+}
+.tariff:hover{transform:translateY(-5px);box-shadow:0 20px 44px rgba(22,50,74,.14)}
+.tariff--feature{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tariff--feature .btn--solid{background:var(--brass);color:#fff}
+.tariff--feature .btn--ghost{border-color:rgba(255,255,255,.4);color:var(--paper)}
+.tariff--feature .btn--ghost:hover{background:rgba(255,255,255,.12)}
+.tariff-badge{
+  position:absolute;top:-11px;left:22px;background:var(--brass);color:#fff;
+  font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  padding:5px 12px;border-radius:999px;
+}
+.tariff h3{font-family:var(--font-d);font-size:16px;font-weight:500}
+.tariff-price{font-family:var(--font-d);font-size:36px;font-weight:700;color:var(--brass)}
+.tariff--feature .tariff-price{color:var(--paper)}
+.tariff-price i{font-style:normal;font-size:13px;color:inherit;opacity:.7;font-family:var(--font-b);font-weight:600}
+.tariff ul{list-style:none;display:flex;flex-direction:column;gap:9px;font-size:14px;flex:1}
+.tariff ul li{padding-left:20px;position:relative;opacity:.9}
+.tariff ul li::before{content:"✓";position:absolute;left:0;color:var(--brass);font-weight:600}
+.tariff .btn{width:100%}
+
+/* ================= БЛОК 5 — ОТЗЫВЫ ================= */
+.reviews{background:rgba(22,50,74,.04);padding:clamp(70px,11vh,130px) clamp(18px,5vw,64px)}
+.reviews-inner{max-width:1120px;margin:0 auto}
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+@media(max-width:900px){.review-grid{grid-template-columns:1fr}}
+.review{margin:0;background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.review-photo{position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,var(--brass),var(--ink))}
+.review-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.review blockquote{padding:20px;display:flex;flex-direction:column;gap:12px;flex:1}
+.review p{font-size:14.5px;line-height:1.65;color:var(--ink)}
+.review cite{font-style:normal;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass);font-weight:600}
+
+/* ================= БЛОК 6 — ФУТЕР ================= */
+#site-footer{background:var(--ink);color:var(--paper);padding:clamp(40px,7vh,70px) clamp(18px,5vw,64px) 26px}
+.footer-inner{max-width:1120px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:34px}
+@media(max-width:800px){.footer-grid{grid-template-columns:repeat(2,1fr)}}
+.footer-grid span,.footer-grid a{font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.85)}
+.footer-grid a:hover{color:#fff}
+.footer-bottom{
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  border-top:1px solid rgba(255,255,255,.16);padding-top:18px;
+  font-size:12px;letter-spacing:.08em;color:rgba(255,255,255,.6);
+}
+.footer-slogan{color:rgba(255,255,255,.8);letter-spacing:.16em;text-transform:uppercase}
+
+/* ================= МОДАЛКА ================= */
+.booking{position:fixed;inset:0;z-index:60;background:rgba(22,50,74,.72);display:grid;place-items:center;padding:20px;backdrop-filter:blur(6px)}
+.booking[hidden]{display:none}
+.booking-card{
+  width:min(460px,100%);background:var(--paper);color:var(--ink);
+  border-radius:20px;padding:30px;display:flex;flex-direction:column;gap:14px;
+  box-shadow:0 40px 90px rgba(0,0,0,.5);animation:pop .4s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes pop{from{transform:translateY(24px) scale(.96);opacity:0}}
+.booking-card h3{font-family:var(--font-d);font-size:20px;font-weight:500}
+.booking-card label{display:flex;flex-direction:column;gap:6px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:rgba(22,50,74,.72)}
+.booking-card input{
+  font:inherit;font-size:15px;padding:12px 14px;border:1px solid var(--line);
+  border-radius:10px;background:#fff;color:var(--ink);text-transform:none;letter-spacing:0;
+}
+.booking-card input:focus{outline:2px solid var(--brass)}
+.booking-actions{display:flex;gap:10px;margin-top:4px}
+.booking-actions .btn{flex:1;text-align:center}
+.booking-card .btn--ghost{border-color:var(--line);color:var(--ink)}
+.booking-done{color:var(--brass);font-weight:600;font-size:14px}
+
+/* ================= ПОЯВЛЕНИЕ БЛОКОВ ПРИ СКРОЛЛЕ ================= */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.is-in{opacity:1;transform:none}
+
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}

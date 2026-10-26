@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>АРКА 123 — пространство для мастер-классов и семинаров напротив Библиотеки</title>
+<meta name="description" content="АРКА 123 — светлое помещение 123 м² с арочными окнами 4 × 3,5 м и видом на Национальную библиотеку. Аренда под мастер-классы, семинары и встречи. Минск, ул. Мстиславца, 10.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ======================= ПРЕЛОАДЕР ======================= -->
+<div id="preloader" aria-hidden="true">
+  <div class="pre-stage">
+    <video id="pre-logo" class="pre-logo" src="logo animation.webm" muted playsinline preload="auto" disablepictureinpicture aria-hidden="true"></video>
+  </div>
+</div>
+
+<!-- ======================= ХЕДЕР: лого · номер · адрес ======================= -->
+<header id="site-header">
+  <a class="brand" href="#hero" aria-label="АРКА 123 — наверх">
+    <video class="brand-logo" id="hover-logo" src="лого для шапки.webm" muted playsinline preload="auto" disablepictureinpicture aria-hidden="true"></video>
+  </a>
+  <div class="h-contacts">
+    <span class="h-address">Минск, ул. Мстиславца, 10</span>
+    <a class="h-phone" href="tel:+375291234567">+375 29 123-45-67</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ======================= БЛОК 1 — ЗАГОЛОВОК + КРУПНЫЙ ПОДЗАГОЛОВОК ======================= -->
+<section class="hero" id="hero">
+  <video class="hero-bg" src="hero-panorama.mp4" poster="hero-poster.jpg" autoplay muted loop playsinline></video>
+  <div class="hero-veil"></div>
+  <div class="hero-copy">
+    <h1 class="hero-title"><span class="sr-only">АРКА 123 — </span>123 <i class="hero-unit">м²</i><span class="hero-badge" aria-hidden="true"><img src="arka123-wordmark.svg" alt=""></span></h1>
+    <p class="hero-sub">напротив Библиотеки</p>
+    <p class="hero-tag">Аренда помещения для мастер-классов<br>и семинаров</p>
+  </div>
+  <div class="scroll-hint"><i></i></div>
+</section>
+
+<!-- ======================= БЛОК 2 — ВИДЕОСЦЕНА: ПЕРСОНАЖ + ПАРАМЕТРЫ (вьюпорт зафиксирован) ======================= -->
+<section class="usp" id="usp">
+  <div class="usp-stage">
+
+    <!-- прямой ролик и заранее закодированная обратная версия (ffmpeg, фильтр reverse) -->
+    <video class="usp-video is-live" id="v-fwd" src="персонаж.mp4" muted playsinline preload="auto" disablepictureinpicture aria-hidden="true"></video>
+    <video class="usp-video" id="v-rev" src="персонаж-обратное.mp4" muted playsinline preload="auto" disablepictureinpicture aria-hidden="true"></video>
+    <div class="usp-veil"></div>
+
+    <h2 class="sr-only">Почему именно АРКА 123</h2>
+
+    <!-- одна сцена — один тезис; тезис всплывает поверх видео -->
+    <div class="scenes" id="scenes">
+      <p class="scene is-on"><span>Окна 4 × 3,5 м</span></p>
+      <p class="scene scene--right"><span>Вид<br>на Национальную<br>библиотеку Беларуси</span></p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======================= БЛОК 3 — ВЫВОД НА ДЕЙСТВИЕ (фото с гостями) ======================= -->
+<section class="cta cta--people" id="cta-1">
+  <!-- слайдшоу фотографий с гостями: медленно сменяют друг друга -->
+  <div class="cta-slides" aria-hidden="true">
+    <img src="cta-people1.jpg" alt="">
+    <img src="cta-people2.jpg" alt="">
+    <img src="cta-people3.jpg" alt="">
+  </div>
+  <div class="cta-veil"></div>
+  <div class="cta-copy">
+    <h2 class="cta-title">Проведите свой<br>мастер-класс или семинар</h2>
+    <p class="cta-lead">Расскажите дату и формат — подберём тариф и покажем зал онлайн.</p>
+    <button class="btn btn--solid" data-contact>Забронировать дату</button>
+  </div>
+</section>
+
+<!-- ======================= БЛОК 4 — ПОДРОБНОСТИ: ЦЕНЫ ======================= -->
+<section class="details" id="details">
+  <div class="details-inner">
+    <h2 class="h2">Услуги и цены</h2>
+
+    <div class="tariffs">
+      <article class="tariff">
+        <h3>Часовой</h3>
+        <div class="tariff-price">60 <i>BYN/час</i></div>
+        <ul><li>Зал 123 м²</li><li>Свет и мебель</li><li>Уборка после</li><li>Минимум 2 часа</li></ul>
+        <button class="btn btn--ghost" data-contact>Записаться</button>
+      </article>
+      <article class="tariff tariff--feature">
+        <div class="tariff-badge">популярный</div>
+        <h3>Дневной</h3>
+        <div class="tariff-price">450 <i>BYN/день</i></div>
+        <ul><li>8 часов подряд</li><li>Экран + микрофон</li><li>Кофе-брейк включён</li><li>Координатор</li></ul>
+        <button class="btn btn--solid" data-contact>Записаться</button>
+      </article>
+      <article class="tariff">
+        <h3>Вечерний</h3>
+        <div class="tariff-price">320 <i>BYN/вечер</i></div>
+        <ul><li>4 часа после 18:00</li><li>Вид на подсвеченную библиотеку</li><li>Декор-зона</li><li>Звук для фуршета</li></ul>
+        <button class="btn btn--ghost" data-contact>Записаться</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= БЛОК 5 — ОТЗЫВЫ (фото клиентов вставит владелец) ======================= -->
+<section class="reviews" id="reviews">
+  <div class="reviews-inner">
+    <h2 class="h2">Что говорят гости</h2>
+    <div class="review-grid">
+
+      <!-- ФОТО КЛИЕНТА: положите рядом файл review1.jpg (или png) — он подставится само -->
+      <figure class="review">
+        <div class="review-photo">
+          <img src="review1.jpg" alt="Гости АРКА 123" onerror="this.remove()">
+          <span class="photo-hint">ФОТО КЛИЕНТА<br><i>review1.jpg</i></span>
+        </div>
+        <blockquote>
+          <p>«Провели семинар на 40 человек. Окна — отдельный персонаж мероприятия: все выходили смотреть на библиотеку».</p>
+          <cite>Ирина, организатор курса</cite>
+        </blockquote>
+      </figure>
+
+      <!-- ФОТО КЛИЕНТА: review2.jpg -->
+      <figure class="review">
+        <div class="review-photo">
+          <img src="review2.jpg" alt="Мастер-класс в АРКА 123" onerror="this.remove()">
+          <span class="photo-hint">ФОТО КЛИЕНТА<br><i>review2.jpg</i></span>
+        </div>
+        <blockquote>
+          <p>«Мастер-класс по керамике прошёл волшебно: свет, паркет, простор. Гости спрашивали адрес уже на следующий день».</p>
+          <cite>Даша, мастер-классы</cite>
+        </blockquote>
+      </figure>
+
+      <!-- ФОТО КЛИЕНТА: review3.jpg -->
+      <figure class="review">
+        <div class="review-photo">
+          <img src="review3.jpg" alt="Презентация в АРКА 123" onerror="this.remove()">
+          <span class="photo-hint">ФОТО КЛИЕНТА<br><i>review3.jpg</i></span>
+        </div>
+        <blockquote>
+          <p>«Бронировали вечерний тариф для презентации. Вид на подсвеченный фасад — лучший фон для фото».</p>
+          <cite>Артём, продакт-менеджер</cite>
+        </blockquote>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<!-- ======================= БЛОК 6 — ВТОРОЙ ВЫВОД НА ДЕЙСТВИЕ + ФУТЕР ======================= -->
+<section class="cta cta--building" id="cta-2">
+  <!-- ФОТО ЗДАНИЯ: положите рядом файл building.jpg — оно подставится само -->
+  <div class="cta-bg cta-bg--photo">
+    <img src="building.jpg" alt="Здание АРКА 123" onerror="this.remove()">
+    <span class="photo-hint">ФОТО ЗДАНИЯ СНАРУЖИ<br><i>building.jpg</i></span>
+  </div>
+  <div class="cta-veil"></div>
+  <div class="cta-copy">
+    <h2 class="cta-title">Встречаемся<br>напротив Библиотеки</h2>
+    <p class="cta-lead">Минск, ул. Мстиславца, 10. Ежедневно 09:00 — 23:00.</p>
+    <a class="btn btn--solid" href="tel:+375291234567">Позвонить и забронировать</a>
+  </div>
+</section>
+
+<footer id="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div><span>г. Минск, ул. Мстиславца, 10</span></div>
+      <div><a href="tel:+375291234567">+375 29 123-45-67</a></div>
+      <div><a href="mailto:hello@arka123.by">hello@arka123.by</a></div>
+      <div><span>ежедневно 09:00 — 23:00</span></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 АРКА 123</span>
+      <span class="footer-slogan">Встречаемся напротив Библиотеки.</span>
+      <span>Мстиславца, 10 · 123 м²</span>
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<!-- Модалка брони -->
+<div id="booking" class="booking" hidden>
+  <form class="booking-card" id="booking-form">
+    <h3>Бронирование АРКА 123</h3>
+    <label>Имя<input name="name" required placeholder="Как к вам обращаться"></label>
+    <label>Телефон<input name="phone" required placeholder="+375 __ ___-__-__"></label>
+    <label>Дата и формат<input name="date" placeholder="12 марта, дневной тариф"></label>
+    <div class="booking-actions">
+      <button type="submit" class="btn btn--solid">Отправить</button>
+      <button type="button" class="btn btn--ghost" id="booking-close">Закрыть</button>
+    </div>
+    <p class="booking-done" id="booking-done" hidden>Спасибо! Мы свяжемся с вами в течение часа.</p>
+  </form>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
