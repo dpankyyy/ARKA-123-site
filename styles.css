@@ -262,8 +262,8 @@ img,video{display:block;max-width:100%}
 /* ================= БЛОК 6 — ФУТЕР ================= */
 #site-footer{background:var(--ink);color:var(--paper);padding:clamp(40px,7vh,70px) clamp(18px,5vw,64px) 26px}
 .footer-inner{max-width:1120px;margin:0 auto}
-.footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:34px}
-@media(max-width:800px){.footer-grid{grid-template-columns:repeat(2,1fr)}}
+.footer-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:18px 24px;margin-bottom:34px}
+@media(max-width:800px){.footer-grid{display:grid;grid-template-columns:repeat(2,1fr)}}
 .footer-grid span,.footer-grid a{font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.85)}
 .footer-grid a:hover{color:#fff}
 .footer-bottom{
