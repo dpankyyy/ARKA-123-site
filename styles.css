@@ -96,19 +96,13 @@ img,video{display:block;max-width:100%}
   white-space:nowrap;color:var(--paper);
 }
 .hero-tag{
+  /* подпись первого экрана — тем же стилем, что и подзаголовок-лид в других блоках (Manrope) */
   margin:calc(var(--hero-fs) * .127) 0 0;
-  font-family:var(--font-d);font-weight:500;
-  font-size:calc(var(--hero-fs) * .085);
-  line-height:1.35;letter-spacing:.01em;
-  color:rgba(255,255,255,.88);
+  font-family:var(--font-b);font-weight:400;
+  font-size:clamp(15px,1.5vw,19px);
+  line-height:1.6;letter-spacing:.01em;
+  color:rgba(255,255,255,.9);
 }
-.scroll-hint{
-  position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:2;
-  display:flex;flex-direction:column;align-items:center;gap:10px;
-  font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.75);
-}
-.scroll-hint i{width:1px;height:44px;background:linear-gradient(var(--brass),transparent);animation:hint 1.6s infinite}
-@keyframes hint{0%{transform:scaleY(.2);transform-origin:top}60%{transform:scaleY(1)}100%{transform:scaleY(.2);transform-origin:bottom;opacity:0}}
 @media(max-width:760px){
   .hero{--hero-fs:21vw}                 /* на узких экранах «123 м²» занимает ~84% ширины */
 }
@@ -187,7 +181,7 @@ img,video{display:block;max-width:100%}
   position:absolute;inset:0;
   background:linear-gradient(90deg,rgba(22,50,74,.85) 0%,rgba(22,50,74,.55) 55%,rgba(22,50,74,.3) 100%);
 }
-.cta-copy{position:relative;z-index:2;color:var(--paper);padding:clamp(60px,10vh,120px) clamp(22px,7vw,110px);max-width:900px}
+.cta-copy{position:relative;z-index:2;color:var(--paper);padding:clamp(60px,10vh,120px) clamp(18px,4.45%,64px);max-width:900px}
 .cta-title{font-family:var(--font-d);font-weight:500;font-size:clamp(30px,4.6vw,64px);line-height:1.06;margin-bottom:18px;text-shadow:0 16px 50px rgba(0,0,0,.45)}
 .cta-lead{font-size:clamp(15px,1.5vw,19px);line-height:1.6;color:rgba(255,255,255,.9);margin-bottom:28px;max-width:560px}
 
@@ -235,6 +229,23 @@ img,video{display:block;max-width:100%}
 .tariff ul li{padding-left:20px;position:relative;opacity:.9}
 .tariff ul li::before{content:"✓";position:absolute;left:0;color:var(--brass);font-weight:600}
 .tariff .btn{width:100%}
+
+/* ================= ФОТОГАЛЕРЕЯ — одна строка, горизонтальный ход от вертикального скролла ================= */
+.gallery{position:relative;background:var(--paper)}
+.gallery-viewport{
+  position:sticky;top:0;height:100vh;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:center;gap:clamp(24px,4vh,44px);
+  padding:clamp(90px,13vh,140px) clamp(18px,5vw,64px) clamp(36px,6vh,70px);
+}
+.gallery-head{width:100%;max-width:1120px;margin:0 auto}
+.gallery-frame{width:100%;max-width:1120px;margin:0 auto}
+.gallery-track{display:flex;gap:18px;will-change:transform;transition:transform .1s linear}
+.gallery-item{
+  margin:0;flex:0 0 auto;height:min(52vh,430px);aspect-ratio:4/3;
+  background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;
+}
+.gallery-item img{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:760px){.gallery-item{height:min(34vh,270px)}}
 
 /* ================= БЛОК 5 — ОТЗЫВЫ ================= */
 .reviews{background:rgba(22,50,74,.04);padding:clamp(70px,11vh,130px) clamp(18px,5vw,64px)}

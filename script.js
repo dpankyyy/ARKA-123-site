@@ -468,10 +468,50 @@ function bindSlideshow() {
 /* ============================================================
    СТАРТ
    ============================================================ */
+/* ============================================================
+   ФОТОГАЛЕРЕЯ: лента в одну строку едет вбок по вертикальному
+   скроллу — секция «липнет» на экране, пока не проедет вся лента
+   ============================================================ */
+function bindGalleryScroll() {
+  const sec = document.getElementById('gallery');
+  const track = document.getElementById('gallery-track');
+  if (!sec || !track) return;
+
+  let max = 0, top = 0, span = 1;
+
+  function layout() {
+    track.style.transition = 'none';
+    track.style.transform = 'none';
+    max = Math.max(0, track.scrollWidth - track.clientWidth);
+    /* высота секции = экран + дистанция хода ленты (чуть короче, чтобы было быстро) */
+    sec.style.height = (window.innerHeight + max * 0.9) + 'px';
+    top = sec.offsetTop;
+    span = Math.max(1, sec.offsetHeight - window.innerHeight);
+    requestAnimationFrame(() => { track.style.transition = ''; });
+  }
+
+  function update() {
+    let p = (window.scrollY - top) / span;
+    p = p < 0 ? 0 : p > 1 ? 1 : p;
+    track.style.transform = 'translate3d(' + (-max * p) + 'px,0,0)';
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', () => { layout(); update(); });
+
+  /* ширина может «поехать» после загрузки фото/шрифтов */
+  window.addEventListener('load', () => { layout(); update(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { layout(); update(); });
+
+  layout();
+  update();
+}
+
 bindBrandLogo();
 bindSceneStage();
 bindReveal();
 bindSlideshow();
+bindGalleryScroll();
 runPreloader();
 
 })();
